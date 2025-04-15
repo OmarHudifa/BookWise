@@ -6,34 +6,28 @@ import Image from 'next/image';
 import uploadImage from "../app/icons/upload.svg"
 import { toast } from 'sonner';
 
+const authenticator = async () => {
+  try {
+    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`);
 
+    if (!response.ok) {
+      const errorText = await response.text();
 
-
-
-
-
-
-const authenticator=async()=>{
-
-try {
-    const response=await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`)
-
-    if(!response.ok){
-      const errorText=await response.text()
-      throw new Error(`Request failed with status ${response.status}: ${errorText}`)
+      throw new Error(
+        `Request failed with status ${response.status}: ${errorText}`,
+      );
     }
 
-    const data=await response.json()
+    const data = await response.json();
 
-    const{expire,signature,token}=data
+    const { signature, expire, token } = data;
 
-    return{signature,expire,token}
+    return { token, expire, signature };
+  } catch (error: any) {
+    throw new Error(`Authentication request failed: ${error.message}`);
+  }
+};
 
-
-} catch (error:any) {
-    throw new Error(`Authentication request failed:${error.message}`)
-}
-}
 
 const ImageUpload = ({onFileChange}:{onFileChange:(filepath:string)=>void}) => {
   const ikUploadRef=useRef(null)
