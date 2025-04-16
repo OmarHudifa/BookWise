@@ -15,6 +15,7 @@ export async function GET() {
   return NextResponse.json(imagekit.getAuthenticationParameters());
 }
 
+
 /*
 // app/api/imagekit/route.ts
 
