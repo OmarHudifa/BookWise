@@ -17,8 +17,19 @@ export async function GET() {
   response.headers.set('Access-Control-Allow-Origin', '*');
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
-    
+
   return NextResponse.json(response);
+}
+
+export async function OPTIONS() {
+  const response = NextResponse.json({});
+  
+  // Set CORS headers for OPTIONS (preflight)
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  
+  return response;
 }
 
 
