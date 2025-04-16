@@ -49,7 +49,6 @@ const AuthForm=<T extends FieldValues>({type,schema,defaultValues,onSubmit}:Prop
           toast("Success",{
             description: isSignIn? `you have successfully signed in.`:`you have successfully signed up.`
             })
-            console.log("2")
             router.push("/")
         }else{
           toast(`Error ${isSignIn?"signing in":"signing up"}`,{
