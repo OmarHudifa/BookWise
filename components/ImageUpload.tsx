@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/imagekit`);
+    const response = await fetch(`${config.env.apiEndpoint}api/imagekit`);
 
     if (!response.ok) {
       const errorText = await response.text();
