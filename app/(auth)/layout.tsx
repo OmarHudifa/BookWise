@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import Image from 'next/image'
-import authIllustration from "../../app/images/auth-illustration.png"
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 
@@ -21,7 +20,7 @@ const layout = async ({children}:{children:ReactNode}) => {
         </div> 
     </section>
     <section className='auth-illustration'>
-      <Image src={authIllustration} alt='auth-illustration' width={1000} height={1000} className='size-full object-cover'/>
+      <Image src="images/auth-illustration.png" alt='auth-illustration' width={1000} height={1000} className='size-full object-cover'/>
     </section>
   </main>
   )
