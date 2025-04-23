@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import logo from "../../app/icons/logo.svg"
 import Image from 'next/image'
 import authIllustration from "../../app/images/auth-illustration.png"
 import { auth } from '@/auth'
@@ -15,7 +14,7 @@ const layout = async ({children}:{children:ReactNode}) => {
     <section className='auth-form'>
         <div className="auth-box">
             <div className='flex flex-row gap-3'>
-            <Image src={logo} alt="logo" width={37} height={37}/>
+            <Image src="icons/logo.svg" alt="logo" width={37} height={37}/>
             <h1 className='text-2xl font-semibold text-white'>BookWise</h1>
             </div>
             <div>{children}</div>
