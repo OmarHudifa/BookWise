@@ -107,7 +107,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        pattern: "url('../app/images/pattern.webp')",
+        pattern: "url('/images/pattern.webp')",
       },
     },
   },

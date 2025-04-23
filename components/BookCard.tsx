@@ -3,7 +3,6 @@ import React from 'react'
 import BookCover from './BookCover'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import calender from "../app/icons/calendar.svg"
 import { Button } from './ui/button'
 
 const BookCard = ({id,title,genre,cover,color,isLoanedBook=false}:Book) => <li className={cn(isLoanedBook&& "xs:w-52 w-full")}>
@@ -18,7 +17,7 @@ const BookCard = ({id,title,genre,cover,color,isLoanedBook=false}:Book) => <li c
   {isLoanedBook&&(<div className='mt-3 w-full'>
     <div className='book-loaned'>
       <Image
-      src={calender}
+      src="icons/calendar.svg"
       alt='calender'
       width={18}
       height={18}
