@@ -3,7 +3,6 @@ import React, { useRef,useState } from 'react'
 import { IKImage,  ImageKitProvider, IKUpload } from "imagekitio-next";
 import config from '@/lib/config';
 import Image from 'next/image';
-import uploadImage from "../app/icons/upload.svg"
 import { toast } from 'sonner';
 
 const authenticator = async () => {
@@ -60,7 +59,7 @@ const ImageUpload = ({onFileChange}:{onFileChange:(filepath:string)=>void}) => {
         ikUploadRef.current?.click()
       }
     }}>
-      <Image src={uploadImage} width={20} height={20} alt='upload-icon' className='object-contain'/>
+      <Image src="icons/upload.svg" width={20} height={20} alt='upload-icon' className='object-contain'/>
       <p className='text-base text-light-100'>Upload a File</p>
       {file && <p className='upload-filename'>{file.filePath}</p>}
     </button>
