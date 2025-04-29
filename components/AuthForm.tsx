@@ -4,7 +4,7 @@ import React from 'react'
 import { DefaultValues, FieldValue, FieldValues, Path, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm,UseFormReturn } from "react-hook-form"
-import {object, z, ZodType} from "zod"
+import { ZodType} from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -19,11 +19,11 @@ import { Input } from "@/components/ui/input"
 
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from '@/constants'
-import ImageUpload from './ImageUpload'
+import FileUpload from './FileUpload'
 import { toast } from 'sonner'
 import { useRouter } from "next/navigation";
 
-
+// t extends value is to use the form for signup and signin(reusability)
 
 interface Props<T extends FieldValues>{
     schema :ZodType<T>,
@@ -43,7 +43,6 @@ const AuthForm=<T extends FieldValues>({type,schema,defaultValues,onSubmit}:Prop
       
       const handleSubmit: SubmitHandler<T> = async (data) => {
         const result = await onSubmit(data);
-          console.log("hello this is 1")
         if(result.success){
           toast("Success",{
             description: isSignIn? `you have successfully signed in.`:`you have successfully signed up.`
@@ -67,7 +66,7 @@ const AuthForm=<T extends FieldValues>({type,schema,defaultValues,onSubmit}:Prop
           : "Please complete all fields and upload a valid university ID to gain access to the library"}
       </p>
     <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
       {Object.keys(defaultValues).map((field)=>(
         <FormField
         key={field}
@@ -77,7 +76,7 @@ const AuthForm=<T extends FieldValues>({type,schema,defaultValues,onSubmit}:Prop
           <FormItem>
             <FormLabel>{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}</FormLabel>
             <FormControl >
-              {field.name === "universityCard"?<ImageUpload onFileChange={field.onChange}/>
+              {field.name === "universityCard"?<FileUpload onFileChange={field.onChange} type={'image'} accept="image/*" placeholder="Upload your ID" folder="ids" variant="dark"/>
               :<Input required type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} {...field} className='form-input' />}
             </FormControl>
             <FormMessage />
