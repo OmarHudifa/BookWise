@@ -15,7 +15,7 @@ const {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.prodApiEndpoint}/api/imagekit`);
+    const response = await fetch(`${config.env.apiEndpoint}/api/imagekit`);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -42,14 +42,15 @@ interface Props{
   folder:string,
   variant:'light'|'dark'
   onFileChange:(filePath:string)=>void
+  value?: string;
 }
 
 const FileUpload = ({onFileChange
-  ,type,accept,placeholder,folder,variant
+  ,type,accept,placeholder,folder,variant,value
 }:Props) => {
 
   const ikUploadRef=useRef(null)
-  const [file, setFile] = useState<{filePath:string}|null>(null)
+  const [file, setFile] = useState<{filePath:string|null}>({filePath:value??null})
   const[progress,setProgress]=useState(0)
 
   const styles={

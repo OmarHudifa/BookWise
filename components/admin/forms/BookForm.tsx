@@ -18,6 +18,10 @@ import { useRouter } from "next/navigation";
 import { bookSchema } from '@/lib/validations'
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import FileUpload from "@/components/FileUpload"
+import ColorPicker from "../ColorPicker"
+import { createBook } from "@/lib/admin/actions/book"
+import { toast } from "sonner"
 
 
 
@@ -44,7 +48,20 @@ const BookForm=({type,...book}:Props) => {
       })
      
       
-     const onSubmit=async(values:z.infer<typeof bookSchema>)=>{}
+     const onSubmit=async(values:z.infer<typeof bookSchema>)=>{
+      console.log(values)
+      const result=await createBook(values)
+      if(result.success){
+        toast("Success",{
+          description:`Book created successfully.`
+          })
+          router.push(`/admin/books/${result.data.id}`)
+      }else{
+        toast("Error",{
+          description: result.message
+          })
+      }
+     }
 
 
   return (
@@ -124,7 +141,8 @@ const BookForm=({type,...book}:Props) => {
           <FormItem className='flex flex-col gap-1'>
             <FormLabel className='text-base font-normal text-dark-500'>Book Image</FormLabel>
             <FormControl >
-              
+               <FileUpload onFileChange={field.onChange} 
+               type={'image'} accept="image/*" placeholder="Upload a Book Cover" folder="books/covers" variant="light" value={field.value}/>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -137,7 +155,7 @@ const BookForm=({type,...book}:Props) => {
           <FormItem className='flex flex-col gap-1'>
             <FormLabel className='text-base font-normal text-dark-500'>Primary Color</FormLabel>
             <FormControl >
-              
+              <ColorPicker value={field.value} onPickerChange={field.onChange}/>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -168,25 +186,13 @@ const BookForm=({type,...book}:Props) => {
           <FormItem className='flex flex-col gap-1'>
             <FormLabel className='text-base font-normal text-dark-500'>Book trailer</FormLabel>
             <FormControl >
-              
+            <FileUpload onFileChange={field.onChange} 
+               type={'video'} accept="video/*" placeholder="Upload a Book Trailer" folder="books/videos" variant="light" value={field.value}/>
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
-      />
-      <FormField
-        control={form.control}
-        name={"coverColor"}
-        render={({ field }) => (
-          <FormItem className='flex flex-col gap-1'>
-            <FormLabel className='text-base font-normal text-dark-500'>Primary Color</FormLabel>
-            <FormControl >
-              
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      />     
 <FormField
         control={form.control}
         name={"summary"}
